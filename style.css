@@ -86,7 +86,7 @@ body {
   max-width: 80vw;
   margin-top: clamp(80px, 4vh, 20px);
   font-size: 20px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #FFC314;
   pointer-events: auto;
