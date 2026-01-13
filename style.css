@@ -49,7 +49,7 @@ body {
   background-position: center;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 180ms ease;
+  transition: opacity 120ms ease-out;
 }
 
 .carousel__layer.is-active {
