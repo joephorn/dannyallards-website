@@ -113,6 +113,8 @@ body {
   background: var(--hover-image) center / contain no-repeat;
   opacity: 0;
   transform: translate(-50%, -10px);
+  transition: none;
+  pointer-events: none;
 }
 
 .contact__link:hover::before,
