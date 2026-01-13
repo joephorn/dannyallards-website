@@ -1,12 +1,11 @@
 @font-face {
   font-family: "BeckerEgyptian";
   src: url("assets/BeckerGothics-Egyptian.ttf") format("truetype");
-  font-display: swap;
 }
 
 :root {
-  --color-1: #FFC314;
-  --color-2: #00412D;
+  --c1: #FFC314;
+  --c2: #00412D;
 }
 
 html,
@@ -30,14 +29,13 @@ body {
 }
 
 .carousel__overlay {
-  position: absolute;
+  position: absolute; 
   inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: clamp(12px, 2.4vh, 24px);
-  transform: translateY(0vh);
   z-index: 2;
   pointer-events: none;
 }
@@ -87,7 +85,7 @@ body {
   font-size: 20px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #FFC314;
+  color: var(--c1);
   pointer-events: auto;
   text-align: center;
 }
@@ -115,13 +113,11 @@ body {
   background: var(--hover-image) center / contain no-repeat;
   opacity: 0;
   transform: translate(-50%, -10px);
-  pointer-events: none;
 }
 
 .contact__link:hover::before,
 .contact__link:focus-visible::before {
   opacity: 1;
-  transform: translate(-50%, -15px);
 }
 
 .contact__link--email {
@@ -134,11 +130,6 @@ body {
 
 .contact__link--boomaap {
   --hover-image: url("assets/hover-boomaap.svg");
-}
-
-.contact__link:focus-visible {
-  outline: 2px solid var(--color-1);
-  outline-offset: 4px;
 }
 
 .contact__dot {

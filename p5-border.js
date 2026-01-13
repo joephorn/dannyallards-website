@@ -6,8 +6,6 @@ let depthMin = 2;
 let depthMax = 6;
 let segmentMin = 20;
 let segmentMax = 80;
-let c1 = "#FFC314";
-let c2 = "#00412D";
 let leftShift = 3;
 let rightShift = -3;
 
@@ -16,15 +14,15 @@ let halfStripe = stripe / 2;
 let band = border + depthMax;
 let jagged = null;
 
-const readCssColor = (name, fallback) => {
+const readCssColor = (name) => {
   const rootStyles = getComputedStyle(document.documentElement);
   const value = rootStyles.getPropertyValue(name).trim();
-  return value || fallback;
+  return value;
 };
 
 const updateColors = () => {
-  c1 = readCssColor("--color-1", c1);
-  c2 = readCssColor("--color-2", c2);
+  c1 = readCssColor("--c1");
+  c2 = readCssColor("--c2");
 };
 
 const buildEdge = (length, startDepth, endDepth) => {
@@ -178,7 +176,7 @@ function setup() {
     canvas.parent(parent);
   }
   noStroke();
-  frameRate(30);
+  frameRate(2);
   recalc();
 }
 
