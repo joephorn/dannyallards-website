@@ -1,0 +1,173 @@
+@font-face {
+  font-family: "BeckerEgyptian";
+  src: url("assets/BeckerGothics-Egyptian.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --color-1: #FFC314;
+  --color-2: #00412D;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #000;
+  overflow: hidden;
+  font-family: "BeckerEgyptian", "Times New Roman", serif;
+}
+
+.carousel {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: auto;
+}
+
+.carousel__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(12px, 2.4vh, 24px);
+  transform: translateY(0vh);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.carousel__layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.carousel__layer.is-active {
+  opacity: 0.8;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(8px, 1.6vh, 18px);
+  width: min(46vw, 66vh);
+}
+
+.brand__logo {
+  position: relative;
+  width: 100%;
+}
+
+.brand__logo-base {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.25));
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 80%;
+  max-width: 80vw;
+  margin-top: clamp(120px, 4vh, 20px);
+  font-size: 20px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #fff;
+  pointer-events: auto;
+  text-align: center;
+}
+
+.contact__link {
+  text-decoration: none;
+  display: inline-block;
+  padding: 10px 14px;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  position: relative;
+  --hover-image: none;
+}
+
+.contact__link::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 100%;
+  width: 48px;
+  height: 58px;
+  background: var(--hover-image) center / contain no-repeat;
+  opacity: 0;
+  transform: translate(-50%, -10px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  pointer-events: none;
+}
+
+.contact__link:hover::before,
+.contact__link:focus-visible::before {
+  opacity: 1;
+  transform: translate(-50%, -15px);
+}
+
+.contact__link--email {
+  --hover-image: url("assets/hover-email.svg");
+}
+
+.contact__link--instagram {
+  --hover-image: url("assets/hover-instagram.svg");
+}
+
+.contact__link--boomaap {
+  --hover-image: url("assets/hover-boomaap.svg");
+}
+
+.contact__link:focus-visible {
+  outline: 2px solid var(--color-1);
+  outline-offset: 4px;
+}
+
+.contact__dot {
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+@media (max-width: 700px) {
+  .carousel__logo {
+    width: min(70vw, 60vh);
+    max-height: 42vh;
+  }
+}
+
+@media (max-height: 700px) {
+  .carousel__overlay {
+    transform: translateY(2vh);
+    gap: clamp(10px, 2vh, 18px);
+  }
+}
+
+#p5-border {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+}
+
+#p5-border canvas {
+  display: block;
+}
