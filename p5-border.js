@@ -1,6 +1,6 @@
 let border = 10;
-let stripeTarget = 200;
-let stepMs = 500;
+let stripeTarget = 250;
+let stepMs = 750;
 let stepFraction = 0.2;
 let depthMin = 2;
 let depthMax = 6;
@@ -8,7 +8,8 @@ let segmentMin = 20;
 let segmentMax = 80;
 let leftShift = 3;
 let rightShift = -3;
-let mouseSensitivity = 2;
+let deadZoneFraction = 0.12;
+let lastDirection = 1;
 
 let stripe = stripeTarget;
 let halfStripe = stripe / 2;
@@ -106,19 +107,17 @@ const updateStripe = () => {
   band = border + depthMax;
 };
 
-const getMousePhase = () => {
+const getMouseDirection = () => {
   if (typeof mouseX !== "number" || !Number.isFinite(mouseX) || width <= 0) {
-    return 0;
+    return lastDirection;
   }
-  const clamped = Math.min(Math.max(mouseX, 0), width);
-  const centered = clamped - width / 2;
-  const scaled = Math.min(Math.max(centered * mouseSensitivity, -width / 2), width / 2);
-  const rawPhase = (scaled / width) * stripe;
-  const stepSize = stripe / 4;
-  if (!Number.isFinite(stepSize) || stepSize <= 0) {
-    return rawPhase;
+  const center = width / 2;
+  const deadZone = width * deadZoneFraction;
+  if (Math.abs(mouseX - center) <= deadZone / 2) {
+    return lastDirection;
   }
-  return Math.round(rawPhase / stepSize) * stepSize;
+  lastDirection = mouseX < center ? -1 : 1;
+  return lastDirection;
 };
 
 const drawSegment = (side, start, length, color) => {
@@ -192,13 +191,15 @@ function setup() {
     canvas.parent(parent);
   }
   noStroke();
-  frameRate(2);
+  frameRate(4);
   recalc();
 }
 
 function draw() {
   clear();
-  const phase = getMousePhase();
+  const stepIndex = Math.floor(millis() / stepMs);
+  const stepSize = Number.isFinite(stripe) && stripe > 0 ? stripe / 4 : 0;
+  const phase = stepIndex * stepSize * getMouseDirection();
   drawStripes(phase);
   erase();
   drawMask();

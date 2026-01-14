@@ -49,6 +49,11 @@ if (stage) {
   };
 
   const updateFromEvent = (event) => {
+    if (event.target && typeof event.target.closest === "function") {
+      if (event.target.closest(".contact")) {
+        return;
+      }
+    }
     const rect = stage.getBoundingClientRect();
     const index = getIndexForX(event.clientX - rect.left, rect.width, total);
     setIndex(index);
