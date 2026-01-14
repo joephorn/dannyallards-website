@@ -8,6 +8,7 @@ let segmentMin = 20;
 let segmentMax = 80;
 let leftShift = 3;
 let rightShift = -3;
+let mouseSensitivity = 2;
 
 let stripe = stripeTarget;
 let halfStripe = stripe / 2;
@@ -105,6 +106,21 @@ const updateStripe = () => {
   band = border + depthMax;
 };
 
+const getMousePhase = () => {
+  if (typeof mouseX !== "number" || !Number.isFinite(mouseX) || width <= 0) {
+    return 0;
+  }
+  const clamped = Math.min(Math.max(mouseX, 0), width);
+  const centered = clamped - width / 2;
+  const scaled = Math.min(Math.max(centered * mouseSensitivity, -width / 2), width / 2);
+  const rawPhase = (scaled / width) * stripe;
+  const stepSize = stripe / 4;
+  if (!Number.isFinite(stepSize) || stepSize <= 0) {
+    return rawPhase;
+  }
+  return Math.round(rawPhase / stepSize) * stepSize;
+};
+
 const drawSegment = (side, start, length, color) => {
   fill(color);
   if (side === "top") {
@@ -182,8 +198,7 @@ function setup() {
 
 function draw() {
   clear();
-  const stepIndex = Math.floor(millis() / stepMs);
-  const phase = stepIndex * (stripe * stepFraction);
+  const phase = getMousePhase();
   drawStripes(phase);
   erase();
   drawMask();

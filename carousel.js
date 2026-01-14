@@ -1,9 +1,9 @@
 const images = [
-  "assets/beeld1.jpg",
-  "assets/beeld2.jpg",
-  "assets/beeld3.jpg",
-  "assets/beeld4.jpg",
-  "assets/beeld5.jpg"
+  "assets/beeld1.webp",
+  "assets/beeld2.webp",
+  "assets/beeld3.webp",
+  "assets/beeld4.webp",
+  "assets/beeld5.webp"
 ];
 
 const stage = document.getElementById("carousel-stage");
